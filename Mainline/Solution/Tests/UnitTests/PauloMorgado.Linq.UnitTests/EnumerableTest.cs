@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using PauloMorgado.Linq.UnitTests.Utils;
 
 
     /// <summary>
@@ -101,52 +102,56 @@
         public void TakeLast_WithCountGreaterThanSize_ReturnsEnumerableWithAllElements()
         {
             int count = 10;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = source;
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Take(10).Reverse();
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void TakeLast_WithListSourceAndCountGreaterThanSize_ReturnsEnumerableWithAllElements()
         {
             int count = 10;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5).ToList();
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> source = range.ToList();
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = source;
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Take(10).Reverse();
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void TakeLast_WithPositiveCount_ReturnsEnumerableWithLastCountElements()
         {
             int count = 10;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(15, 25);
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Take(10).Reverse();
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void TakeLast_WithListSourceAndPositiveCount_ReturnsEnumerableWithLastCountElements()
         {
             int count = 10;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25).ToList();
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range.ToList();
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(15, 25);
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Take(10).Reverse();
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -172,22 +177,26 @@
         [TestMethod]
         public void TakeLastWhile_WithPredicateThatMatchesLastElements_ReturnsLastSelectedElements()
         {
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            Func<int, bool> predicate = e => e % 10 < 5;
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = new int[] { 20, 21, 22, 23, 24 };
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().TakeWhile(predicate).Reverse();
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, e => e % 10 < 5);
+            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void TakeLastWhile_WithPredicateThatDoesntMatchLastElements_ReturnsEmptyEnumerable()
         {
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            Func<int, bool> predicate = e => e % 10 >= 5;
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, e => e % 10 >= 5);
+            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
 
             Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
         }
@@ -215,22 +224,26 @@
         [TestMethod]
         public void TakeLastWhileWithIndex_WithPredicateThatMatchesLastElements_ReturnsLastSelectedElements()
         {
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            Func<int, int, bool> predicate = (e, i) => i % 10 < 5;
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = new int[] { 20, 21, 22, 23, 24 };
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().TakeWhile(predicate).Reverse();
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, (e, i) => i % 10 < 5);
+            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void TakeLastWhileWithIndex_WithPredicateThatDoesntMatchLastElements_ReturnsEmptyEnumerable()
         {
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            Func<int, int, bool> predicate = (e, i) => i % 10 > 5;
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, (e, i) => i % 10 > 5);
+            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
 
             Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
         }
@@ -250,26 +263,28 @@
         public void SkipLast_WithNegativeCount_ReturnsEmptyEnumerable()
         {
             int count = -1;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = source;
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Skip(count).Reverse();
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void TakeLast_WithZeroCount_ReturnsEmptyEnumerable()
         {
             int count = 0;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = source;
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Skip(count).Reverse();
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -281,7 +296,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Count(), "Unexpected items in Enumerable.");
+            Assert.AreEqual(0, actual.Count(), "Sequence not empty.");
         }
 
         [TestMethod]
@@ -293,33 +308,35 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Count(), "Unexpected items in Enumerable.");
+            Assert.AreEqual(0, actual.Count(), "Sequence not empty.");
         }
 
         [TestMethod]
         public void SkipLast_WithPositiveCount_ReturnsEnumerableSkippingLastCountElements()
         {
             int count = 10;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 15);
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Skip(count).Reverse();
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void SkipLast_WithListSourceAndPositiveCount_ReturnsEnumerableSkippingLastCountElements()
         {
             int count = 10;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25).ToList();
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range.ToList();
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 15);
+            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Skip(count).Reverse();
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+            EnumerableAssert.AreEqual(expected, actual);
         }
     }
 }

@@ -99,13 +99,15 @@ namespace PauloMorgado.Linq
                 buffer[end] = sourceEnumerator.Current;
             }
 
+            end = 0;
+
             while (sourceEnumerator.MoveNext())
             {
-                end = (end + 1) % count;
-
                 var yieldableItem = buffer[end];
 
                 buffer[end] = sourceEnumerator.Current;
+
+                end = (end + 1) % count;
 
                 yield return yieldableItem;
             }
