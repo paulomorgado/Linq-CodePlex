@@ -94,24 +94,37 @@ namespace PauloMorgado.Linq
             var end = -1;
             var numOfItems = 0;
 
-            foreach (var item in source)
-            {
-                if (numOfItems < count)
-                {
-                    end++;
-                    numOfItems++;
-                }
-                else
-                {
-                    end = (end + 1) % count;
-                }
+            var sourceEnumerator = source.GetEnumerator();
 
-                buffer[end] = item;
+            while ((++end < count) && sourceEnumerator.MoveNext())
+            {
+                System.Diagnostics.Debug.WriteLine("1. end={0}", end);
+
+                buffer[end] = sourceEnumerator.Current;
+
+                numOfItems++;
             }
 
-            for (int i = numOfItems - 1; i >= 0; i--)
+            end = end % count;
+
+            while (sourceEnumerator.MoveNext())
             {
-                yield return buffer[i % count];
+                System.Diagnostics.Debug.WriteLine("2. end={0}", end);
+
+                buffer[end] = sourceEnumerator.Current;
+
+                end = (end + 1) % count;
+            }
+
+            end = (end + count + numOfItems) % count;
+
+            while (numOfItems-- > 0)
+            {
+                System.Diagnostics.Debug.WriteLine("3. end={0}", end);
+
+                yield return buffer[end];
+
+                end = (end + 1) % count;
             }
         }
     }
