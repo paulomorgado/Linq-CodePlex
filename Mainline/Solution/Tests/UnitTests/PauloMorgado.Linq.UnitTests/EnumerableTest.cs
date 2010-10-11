@@ -74,7 +74,7 @@
         }
 
         [TestMethod]
-        public void TakeLast_WithNegativeCount_ReturnsEmptyEnumerable()
+        public void TakeLast_WithNegativeCount_ReturnsEnumerableWithAllElements()
         {
             int count = -1;
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
@@ -86,7 +86,7 @@
         }
 
         [TestMethod]
-        public void TakeLast_WithZeroCount_ReturnsEmptyEnumerable()
+        public void TakeLast_WithZeroCount_ReturnsEnumerableWithAllElements()
         {
             int count = 0;
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
@@ -233,6 +233,93 @@
             actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, (e, i) => i % 10 > 5);
 
             Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SkipLast_WithNullSource_ThrowsException()
+        {
+            int count = 0;
+            System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> source = null;
+            System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> actual;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLast<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper>(source, count);
+        }
+
+        [TestMethod]
+        public void SkipLast_WithNegativeCount_ReturnsEmptyEnumerable()
+        {
+            int count = -1;
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = source;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+
+            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+        }
+
+        [TestMethod]
+        public void TakeLast_WithZeroCount_ReturnsEmptyEnumerable()
+        {
+            int count = 0;
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = source;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+
+            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+        }
+
+        [TestMethod]
+        public void SkipLast_WithCountGreaterThanSize_ReturnsEmptyEnumerable()
+        {
+            int count = 10;
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5);
+            System.Collections.Generic.IEnumerable<int> actual;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+
+            Assert.AreEqual(0, actual.Count(), "Unexpected items in Enumerable.");
+        }
+
+        [TestMethod]
+        public void SkipLast_WithListSourceAndCountGreaterThanSize_ReturnsEmptyEnumerable()
+        {
+            int count = 10;
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5).ToList();
+            System.Collections.Generic.IEnumerable<int> actual;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+
+            Assert.AreEqual(0, actual.Count(), "Unexpected items in Enumerable.");
+        }
+
+        [TestMethod]
+        public void SkipLast_WithPositiveCount_ReturnsEnumerableSkippingLastCountElements()
+        {
+            int count = 10;
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 15);
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+
+            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
+        }
+
+        [TestMethod]
+        public void SkipLast_WithListSourceAndPositiveCount_ReturnsEnumerableSkippingLastCountElements()
+        {
+            int count = 10;
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25).ToList();
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 15);
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+
+            Assert.AreEqual(0, actual.Except(expected).Count(), "Unexpected items in Enumerable.");
         }
     }
 }
