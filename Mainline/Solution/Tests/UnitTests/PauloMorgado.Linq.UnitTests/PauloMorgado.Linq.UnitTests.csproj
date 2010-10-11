@@ -61,7 +61,7 @@
     <Shadow Include="Test References\PauloMorgado.Linq.accessor" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PauloMorgado.Linq\PauloMorgado.Linq.csproj">
+    <ProjectReference Include="..\..\..\Sources\PauloMorgado.Linq\PauloMorgado.Linq.csproj">
       <Project>{7B96AC23-0FB1-431A-97D5-37EC63C9D152}</Project>
       <Name>PauloMorgado.Linq</Name>
     </ProjectReference>

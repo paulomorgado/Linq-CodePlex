@@ -1,10 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PauloMorgado.Linq", "PauloMorgado.Linq\PauloMorgado.Linq.csproj", "{7B96AC23-0FB1-431A-97D5-37EC63C9D152}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PauloMorgado.Linq.UnitTests", "PauloMorgado.Linq.UnitTests\PauloMorgado.Linq.UnitTests.csproj", "{660FC280-3DB1-493B-B24D-B3E1150A3EB7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F7744E7-8E29-444A-A46D-2877780E3E19}"
 	ProjectSection(SolutionItems) = preProject
 		LinqSink.vsmdi = LinqSink.vsmdi
@@ -12,18 +8,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{7CC745A8-92FC-4D03-B364-CF958459BA43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{65132B86-F172-4B97-A0B9-38BC89631880}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{E66E68DD-0ACB-42E0-8AFC-ED3DB95E9A3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PauloMorgado.Linq", "Sources\PauloMorgado.Linq\PauloMorgado.Linq.csproj", "{7B96AC23-0FB1-431A-97D5-37EC63C9D152}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PauloMorgado.Linq.UnitTests", "Tests\UnitTests\PauloMorgado.Linq.UnitTests\PauloMorgado.Linq.UnitTests.csproj", "{660FC280-3DB1-493B-B24D-B3E1150A3EB7}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
-		SccProjectUniqueName0 = PauloMorgado.Linq\\PauloMorgado.Linq.csproj
-		SccProjectName0 = PauloMorgado.Linq
-		SccLocalPath0 = PauloMorgado.Linq
-		SccProjectUniqueName1 = PauloMorgado.Linq.UnitTests\\PauloMorgado.Linq.UnitTests.csproj
-		SccProjectName1 = PauloMorgado.Linq.UnitTests
-		SccLocalPath1 = PauloMorgado.Linq.UnitTests
-		SccLocalPath2 = .
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Sources\\PauloMorgado.Linq\\PauloMorgado.Linq.csproj
+		SccProjectTopLevelParentUniqueName1 = PauloMorgado.Linq.sln
+		SccProjectName1 = Sources/PauloMorgado.Linq
+		SccLocalPath1 = Sources\\PauloMorgado.Linq
+		SccProjectUniqueName2 = Tests\\UnitTests\\PauloMorgado.Linq.UnitTests\\PauloMorgado.Linq.UnitTests.csproj
+		SccProjectTopLevelParentUniqueName2 = PauloMorgado.Linq.sln
+		SccProjectName2 = Tests/UnitTests/PauloMorgado.Linq.UnitTests
+		SccLocalPath2 = Tests\\UnitTests\\PauloMorgado.Linq.UnitTests
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = LinqSink.vsmdi
@@ -44,5 +52,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7B96AC23-0FB1-431A-97D5-37EC63C9D152} = {7CC745A8-92FC-4D03-B364-CF958459BA43}
+		{E66E68DD-0ACB-42E0-8AFC-ED3DB95E9A3B} = {65132B86-F172-4B97-A0B9-38BC89631880}
+		{660FC280-3DB1-493B-B24D-B3E1150A3EB7} = {E66E68DD-0ACB-42E0-8AFC-ED3DB95E9A3B}
 	EndGlobalSection
 EndGlobal
