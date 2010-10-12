@@ -105,7 +105,7 @@
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Take(10).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = range;
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
@@ -119,7 +119,7 @@
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
             System.Collections.Generic.IEnumerable<int> source = range.ToList();
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Take(10).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = range;
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
@@ -133,7 +133,7 @@
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Take(10).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(15, 10);
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
@@ -147,7 +147,7 @@
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> source = range.ToList();
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Take(10).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(15, 10);
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
@@ -181,7 +181,7 @@
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().TakeWhile(predicate).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(20, 5);
 
             actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
 
@@ -228,7 +228,7 @@
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().TakeWhile(predicate).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(20, 5);
 
             actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
 
@@ -260,27 +260,27 @@
         }
 
         [TestMethod]
-        public void SkipLast_WithNegativeCount_ReturnsEmptyEnumerable()
+        public void SkipLast_WithNegativeCount_ReturnsAllElements()
         {
             int count = -1;
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Skip(count).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = range;
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            Assert.AreEqual(0, actual.Count(), "Sequence not empty.");
         }
 
         [TestMethod]
-        public void TakeLast_WithZeroCount_ReturnsEmptyEnumerable()
+        public void SkipLast_WithZeroCount_ReturnsAllElements()
         {
             int count = 0;
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Skip(count).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = range;
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
@@ -318,7 +318,7 @@
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Skip(count).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 15);
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
@@ -332,9 +332,105 @@
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> source = range.ToList();
             System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range.Reverse().Skip(count).Reverse();
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 15);
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+
+            EnumerableAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SkipLastWhile_WithNullSource_ThrowsException()
+        {
+            System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> source = null;
+            System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> actual;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper>(source, (Func<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper, bool>)null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SkipLastWhile_WithNullPredicate_ThrowsException()
+        {
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> actual;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, (Func<int, bool>)null);
+        }
+
+        [TestMethod]
+        public void SkipLastWhile_WithPredicateThatDoesntMatchLastElements_ReturnsAllElements()
+        {
+            Func<int, bool> predicate = e => e % 10 < 5;
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = range;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
+
+            EnumerableAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void SkipLastWhile_WithPredicateThatMatchesLastElements_ReturnsAllButLastSelectedElements()
+        {
+            Func<int,  bool> predicate = e => e % 10 > 5;
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 20);
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
+
+            EnumerableAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SkipLastWhileWithIndex_WithNullSource_ThrowsException()
+        {
+            System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> source = null;
+            System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> actual;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper>(source, (Func<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper, int, bool>)null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SkipLastWhileWithIndex_WithNullPredicate_ThrowsException()
+        {
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> actual;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, (Func<int, int, bool>)null);
+        }
+
+        [TestMethod]
+        public void SkipLastWhileWithIndex_WithPredicateThatDoesntMatchLastElements_ReturnsAllButLastSelectedElements()
+        {
+            Func<int, int, bool> predicate = (e, i) => i % 10 < 5;
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 20);
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
+
+            EnumerableAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void SkipLastWhileWithIndex_WithPredicateThatDoesntMatchLastElements_ReturnsAllElements()
+        {
+            Func<int, int, bool> predicate = (e, i) => i % 10 >= 5;
+            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
+            System.Collections.Generic.IEnumerable<int> source = range;
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = range;
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
 
             EnumerableAssert.AreEqual(expected, actual);
         }
