@@ -109,7 +109,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -137,7 +137,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -151,7 +151,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -185,7 +185,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -232,7 +232,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -284,7 +284,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -322,7 +322,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -336,7 +336,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -370,7 +370,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -384,7 +384,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -418,7 +418,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -432,7 +432,7 @@
 
             actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
 
-            EnumerableAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
     }
 }
