@@ -65,97 +65,6 @@
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void TakeLast_WithNullSource_ThrowsException()
-        {
-            int count = 0;
-            System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> source = null;
-            System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> actual;
-
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper>(source, count);
-        }
-
-        [TestMethod]
-        public void TakeLast_WithNegativeCount_ReturnsEnumerableWithAllElements()
-        {
-            int count = -1;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
-            System.Collections.Generic.IEnumerable<int> actual;
-
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
-
-            Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
-        }
-
-        [TestMethod]
-        public void TakeLast_WithZeroCount_ReturnsEnumerableWithAllElements()
-        {
-            int count = 0;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
-            System.Collections.Generic.IEnumerable<int> actual;
-
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
-
-            Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
-        }
-
-        [TestMethod]
-        public void TakeLast_WithCountGreaterThanSize_ReturnsEnumerableWithAllElements()
-        {
-            int count = 10;
-            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
-            System.Collections.Generic.IEnumerable<int> source = range;
-            System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range;
-
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
-
-            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
-        }
-
-        [TestMethod]
-        public void TakeLast_WithListSourceAndCountGreaterThanSize_ReturnsEnumerableWithAllElements()
-        {
-            int count = 10;
-            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 5);
-            System.Collections.Generic.IEnumerable<int> source = range.ToList();
-            System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = range;
-
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
-
-            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
-        }
-
-        [TestMethod]
-        public void TakeLast_WithPositiveCount_ReturnsEnumerableWithLastCountElements()
-        {
-            int count = 10;
-            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
-            System.Collections.Generic.IEnumerable<int> source = range;
-            System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(15, 10);
-
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
-
-            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
-        }
-
-        [TestMethod]
-        public void TakeLast_WithListSourceAndPositiveCount_ReturnsEnumerableWithLastCountElements()
-        {
-            int count = 10;
-            System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
-            System.Collections.Generic.IEnumerable<int> source = range.ToList();
-            System.Collections.Generic.IEnumerable<int> actual;
-            System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(15, 10);
-
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
-
-            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TakeLastWhile_WithNullSource_ThrowsException()
         {
             System.Collections.Generic.IEnumerable<Microsoft.VisualStudio.TestTools.UnitTesting.GenericParameterHelper> source = null;
@@ -290,8 +199,8 @@
         [TestMethod]
         public void SkipLast_WithCountGreaterThanSize_ReturnsEmptyEnumerable()
         {
-            int count = 10;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5);
+            int count = 15;
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 10);
             System.Collections.Generic.IEnumerable<int> actual;
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
@@ -302,8 +211,8 @@
         [TestMethod]
         public void SkipLast_WithListSourceAndCountGreaterThanSize_ReturnsEmptyEnumerable()
         {
-            int count = 10;
-            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 5).ToList();
+            int count = 15;
+            System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 10).ToList();
             System.Collections.Generic.IEnumerable<int> actual;
 
             actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
@@ -376,7 +285,7 @@
         [TestMethod]
         public void SkipLastWhile_WithPredicateThatMatchesLastElements_ReturnsAllButLastSelectedElements()
         {
-            Func<int,  bool> predicate = e => e % 10 > 5;
+            Func<int, bool> predicate = e => e % 10 > 5;
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
