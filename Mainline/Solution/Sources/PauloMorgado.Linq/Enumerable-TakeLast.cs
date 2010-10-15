@@ -8,7 +8,6 @@
 // </copyright>
 // <author>Paulo Morgado</author>
 // <summary>Returns a specified number of contiguous elements from the end of a sequence.</summary>
-
 //-----------------------------------------------------------------------
 
 namespace PauloMorgado.Linq
@@ -90,41 +89,36 @@ namespace PauloMorgado.Linq
             Contract.Assert(source != null);
             Contract.Assert(count > 0);
 
-            var buffer = new TSource[count];
-            var end = -1;
-            var numOfItems = 0;
-
             var sourceEnumerator = source.GetEnumerator();
+            var buffer = new TSource[count];
+            var numOfItems = 0;
+            int idx;
 
-            while ((++end < count) && sourceEnumerator.MoveNext())
+            for (idx = 0; (idx < count) && sourceEnumerator.MoveNext(); idx++, numOfItems++)
             {
-                System.Diagnostics.Debug.WriteLine("1. end={0}", end);
-
-                buffer[end] = sourceEnumerator.Current;
-
-                numOfItems++;
+                buffer[idx] = sourceEnumerator.Current;
             }
 
-            end = end % count;
-
-            while (sourceEnumerator.MoveNext())
+            if (numOfItems < count)
             {
-                System.Diagnostics.Debug.WriteLine("2. end={0}", end);
+                for (idx = 0; idx < numOfItems; idx++)
+                {
+                    yield return buffer[idx];
+                }
 
-                buffer[end] = sourceEnumerator.Current;
-
-                end = (end + 1) % count;
+                yield break;
             }
 
-            end = (end + count + numOfItems) % count;
-
-            while (numOfItems-- > 0)
+            for (idx = 0; sourceEnumerator.MoveNext(); idx = (idx + 1) % count)
             {
-                System.Diagnostics.Debug.WriteLine("3. end={0}", end);
+                System.Diagnostics.Debug.WriteLine("3. end={0}", idx);
 
-                yield return buffer[end];
+                buffer[idx] = sourceEnumerator.Current;
+            }
 
-                end = (end + 1) % count;
+            for (; numOfItems > 0; idx = (idx + 1) % count, numOfItems--)
+            {
+                yield return buffer[idx];
             }
         }
     }
