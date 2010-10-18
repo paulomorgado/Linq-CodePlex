@@ -45,11 +45,6 @@ namespace PauloMorgado.Linq
 
             if (list != null)
             {
-                if (count >= list.Count)
-                {
-                    return list;
-                }
-
                 return TakeLastListIterator<TSource>(list, count);
             }
 
@@ -67,11 +62,10 @@ namespace PauloMorgado.Linq
         {
             Contract.Assert(list != null);
             Contract.Assert(count > 0);
-            Contract.Assert(count < list.Count);
 
             int listCount = list.Count;
 
-            for (int i = listCount - count; i < listCount; i++)
+            for (int i = listCount - ((count < listCount) ? count : listCount); i < listCount; i++)
             {
                 yield return list[i];
             }
