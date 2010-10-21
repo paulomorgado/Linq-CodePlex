@@ -15,6 +15,7 @@ namespace PauloMorgado.Linq
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
+    using System.Linq;
 
     /// <remarks>
     /// Returns all but a specified number of contiguous elements from the end of a sequence.
@@ -31,14 +32,14 @@ namespace PauloMorgado.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is <see langword="null" />.
         /// </exception>
-        public static IEnumerable<TSource> SkipLast<TSource>(IEnumerable<TSource> source, int count)
+        public static IEnumerable<TSource> SkipLast<TSource>(this IEnumerable<TSource> source, int count)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Ensures(Contract.Result<IEnumerable<TSource>>() != null);
 
             if (count <= 0)
             {
-                return System.Linq.Enumerable.Empty<TSource>();
+                return source.Select(i => i);
             }
 
             var list = source as IList<TSource>;
@@ -49,6 +50,8 @@ namespace PauloMorgado.Linq
                 {
                     return System.Linq.Enumerable.Empty<TSource>();
                 }
+
+                // ...
 
                 return SkipLastListIterator<TSource>(list, count);
             }
@@ -71,9 +74,9 @@ namespace PauloMorgado.Linq
 
             int returnCount = list.Count - count;
 
-            for (int i = 0; i < returnCount; i++)
+            for (int idx = 0; idx < returnCount; idx++)
             {
-                yield return list[i];
+                yield return list[idx];
             }
         }
 
@@ -89,27 +92,26 @@ namespace PauloMorgado.Linq
             Contract.Assert(source != null);
             Contract.Assert(count > 0);
 
-            var buffer = new TSource[count];
-            var end = -1;
-
             var sourceEnumerator = source.GetEnumerator();
+            var buffer = new TSource[count];
+            int idx;
 
-            while ((++end < count) && sourceEnumerator.MoveNext())
+            for (idx = 0; (idx < count) && sourceEnumerator.MoveNext(); idx++)
             {
-                buffer[end] = sourceEnumerator.Current;
+                buffer[idx] = sourceEnumerator.Current;
             }
 
-            end = 0;
+            idx = 0;
 
             while (sourceEnumerator.MoveNext())
             {
-                var yieldableItem = buffer[end];
+                var item = buffer[idx];
 
-                buffer[end] = sourceEnumerator.Current;
+                buffer[idx] = sourceEnumerator.Current;
 
-                end = (end + 1) % count;
+                idx = (idx + 1) % count;
 
-                yield return yieldableItem;
+                yield return item;
             }
         }
     }
