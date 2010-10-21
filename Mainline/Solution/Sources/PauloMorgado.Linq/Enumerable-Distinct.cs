@@ -23,7 +23,7 @@ namespace PauloMorgado.Linq
     public static partial class Enumerable
     {
         /// <summary>
-        /// Returns distinct elements from a sequence by using the predicate to determine if two elements are the same.
+        /// Returns distinct elements from a sequence by using the <paramref name="predicate" /> to determine if two elements are the same.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
         /// <param name="source">The sequence to remove duplicate elements from.</param>
@@ -41,7 +41,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Distincts the specified source.
+        /// Returns distinct elements from a sequence by using the <paramref name="selector" /> to select the comparison key.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source"/>.</typeparam>
         /// <typeparam name="TKey">The type of the key.</typeparam>
@@ -63,7 +63,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Distincts the specified source.
+        /// Returns distinct elements from a sequence by using the <paramref name="selector" /> to select the comparison key and the sppecified <paramref name="comparer" /> to compare the values of the keys.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source"/>.</typeparam>
         /// <typeparam name="TKey">The type of the key.</typeparam>

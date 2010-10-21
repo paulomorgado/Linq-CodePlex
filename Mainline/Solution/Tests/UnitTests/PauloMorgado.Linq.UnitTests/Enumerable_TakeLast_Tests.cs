@@ -81,7 +81,7 @@
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
+            actual = source.TakeLast(count);
 
             Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
         }
@@ -93,7 +93,7 @@
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
+            actual = source.TakeLast(count);
 
             Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
         }
@@ -107,7 +107,7 @@
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = range;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
+            actual = source.TakeLast(count);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -121,7 +121,7 @@
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = range;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
+            actual = source.TakeLast(count);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -135,7 +135,7 @@
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(15, 10);
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
+            actual = source.TakeLast(count);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -149,7 +149,7 @@
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(15, 10);
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLast<int>(source, count);
+            actual = source.TakeLast(count);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }

@@ -31,7 +31,7 @@ namespace PauloMorgado.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is <see langword="null" />.
         /// </exception>
-        public static IEnumerable<TSource> TakeLast<TSource>(IEnumerable<TSource> source, int count)
+        public static IEnumerable<TSource> TakeLast<TSource>(this IEnumerable<TSource> source, int count)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Ensures(Contract.Result<IEnumerable<TSource>>() != null);
@@ -65,9 +65,9 @@ namespace PauloMorgado.Linq
 
             int listCount = list.Count;
 
-            for (int i = listCount - ((count < listCount) ? count : listCount); i < listCount; i++)
+            for (int idx = listCount - ((count < listCount) ? count : listCount); idx < listCount; idx++)
             {
-                yield return list[i];
+                yield return list[idx];
             }
         }
 

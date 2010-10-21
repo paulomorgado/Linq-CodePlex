@@ -81,7 +81,7 @@
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, (Func<int, bool>)null);
+            actual = source.TakeLastWhile((Func<int, bool>)null);
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(20, 5);
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
+            actual = source.TakeLastWhile(predicate);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -106,7 +106,7 @@
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
+            actual = source.TakeLastWhile(predicate);
 
             Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
         }
@@ -128,7 +128,7 @@
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, (Func<int, int, bool>)null);
+            actual = source.TakeLastWhile((Func<int, int, bool>)null);
         }
 
         [TestMethod]
@@ -140,7 +140,7 @@
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(20, 5);
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
+            actual = source.TakeLastWhile(predicate);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -153,7 +153,7 @@
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.TakeLastWhile<int>(source, predicate);
+            actual = source.TakeLastWhile(predicate);
 
             Assert.AreEqual(0, actual.Count(), "Expected an empty Enumerable.");
         }

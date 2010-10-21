@@ -84,9 +84,9 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = range;
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+            actual = source.SkipLast(count);
 
-            Assert.AreEqual(0, actual.Count(), "Sequence not empty.");
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = range;
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+            actual = source.SkipLast(count);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -110,7 +110,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 10);
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+            actual = source.SkipLast(count);
 
             Assert.AreEqual(0, actual.Count(), "Sequence not empty.");
         }
@@ -122,7 +122,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 10).ToList();
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+            actual = source.SkipLast(count);
 
             Assert.AreEqual(0, actual.Count(), "Sequence not empty.");
         }
@@ -136,7 +136,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 15);
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+            actual = source.SkipLast(count);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -150,7 +150,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 15);
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLast<int>(source, count);
+            actual = source.SkipLast(count);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }

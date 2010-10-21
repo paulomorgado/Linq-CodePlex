@@ -7,7 +7,7 @@
 //     Copyright (c) Paulo Morgado. All rights reserved.
 // </copyright>
 // <author>Paulo Morgado</author>
-// <summary>Returns all the elements from sequence skiping those at the end that satisfy the condition.</summary>
+// <summary>Returns all the elements from sequence skipping those at the end as long as the specified condition is true.</summary>
 //-----------------------------------------------------------------------
 
 namespace PauloMorgado.Linq
@@ -17,12 +17,12 @@ namespace PauloMorgado.Linq
     using System.Diagnostics.Contracts;
 
     /// <remarks>
-    /// Returns all the elements from sequence skiping those at the end that satisfy the condition.
+    /// Returns all the elements from sequence skipping those at the end that satisfy the condition.
     /// </remarks>
     public static partial class Enumerable
     {
         /// <summary>
-        /// Returns all the elements from sequence skiping those at the end that satisfy the condition.
+        /// Returns all the elements from sequence skipping those at the end as long as the specified condition is true.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of the <paramref name="source"/>.</typeparam>
         /// <param name="source">A sequence to return elements from.</param>
@@ -31,7 +31,7 @@ namespace PauloMorgado.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is <see langword="null" />.
         /// </exception>
-        public static IEnumerable<TSource> SkipLastWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> SkipLastWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Requires<ArgumentNullException>(predicate != null, "predicate");
@@ -41,7 +41,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Returns all the elements from sequence skiping those at the end that satisfy the condition.
+        /// Returns all the elements from sequence skipping those at the end as long as the specified condition is true.
         /// The elements index is used in the logic of the predicate function.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of the <paramref name="source"/>.</typeparam>
@@ -51,7 +51,7 @@ namespace PauloMorgado.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is <see langword="null" />.
         /// </exception>
-        public static IEnumerable<TSource> SkipLastWhile<TSource>(IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
+        public static IEnumerable<TSource> SkipLastWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Requires<ArgumentNullException>(predicate != null, "predicate");
@@ -61,7 +61,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Returns all the elements from sequence skiping those at the end that satisfy the condition.
+        /// Returns all the elements from sequence skipping those at the end that satisfy the condition.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of the <paramref name="source"/>.</typeparam>
         /// <param name="source">A sequence to return elements from.</param>
@@ -98,7 +98,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Returns all the elements from sequence skiping those at the end that satisfy the condition.
+        /// Returns all the elements from sequence skipping those at the end that satisfy the condition.
         /// The elements index is used in the logic of the predicate function.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of the <paramref name="source"/>.</typeparam>
@@ -111,11 +111,11 @@ namespace PauloMorgado.Linq
             Contract.Assert(predicate != null);
 
             var buffer = new List<TSource>();
-            var index = 0;
+            var idx = 0;
 
             foreach (var item in source)
             {
-                if (predicate(item, index++))
+                if (predicate(item, idx++))
                 {
                     buffer.Add(item);
                 }

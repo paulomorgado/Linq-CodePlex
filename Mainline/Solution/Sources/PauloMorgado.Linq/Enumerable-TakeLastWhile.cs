@@ -31,7 +31,7 @@ namespace PauloMorgado.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is <see langword="null" />.
         /// </exception>
-        public static IEnumerable<TSource> TakeLastWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> TakeLastWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Requires<ArgumentNullException>(predicate != null, "predicate");
@@ -51,7 +51,7 @@ namespace PauloMorgado.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is <see langword="null" />.
         /// </exception>
-        public static IEnumerable<TSource> TakeLastWhile<TSource>(IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
+        public static IEnumerable<TSource> TakeLastWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Requires<ArgumentNullException>(predicate != null, "predicate");
@@ -106,11 +106,11 @@ namespace PauloMorgado.Linq
             Contract.Assert(predicate != null);
 
             var buffer = new List<TSource>();
-            var index = 0;
+            var idx = 0;
 
             foreach (var item in source)
             {
-                if (predicate(item, index++))
+                if (predicate(item, idx++))
                 {
                     buffer.Add(item);
                 }

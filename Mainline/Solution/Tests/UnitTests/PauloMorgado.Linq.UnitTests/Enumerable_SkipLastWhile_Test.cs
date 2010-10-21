@@ -80,7 +80,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, (Func<int, bool>)null);
+            actual = source.SkipLastWhile((Func<int, bool>)null);
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = range;
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
+            actual = source.SkipLastWhile(predicate);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -106,7 +106,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 20);
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
+            actual = source.SkipLastWhile(predicate);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -141,19 +141,19 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> source = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> actual;
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, (Func<int, int, bool>)null);
+            actual = source.SkipLastWhile((Func<int, int, bool>)null);
         }
 
         [TestMethod]
-        public void SkipLastWhileWithIndex_WithPredicateThatDoesntMatchLastElements_ReturnsAllButLastSelectedElements()
+        public void SkipLastWhileWithIndex_WithPredicateThatMatchesLastElements_ReturnsAllButLastSelectedElements()
         {
-            Func<int, int, bool> predicate = (e, i) => i % 10 < 5;
+            Func<int, int, bool> predicate = (e, i) => i % 10 >= 5;
             System.Collections.Generic.IEnumerable<int> range = System.Linq.Enumerable.Range(0, 25);
             System.Collections.Generic.IEnumerable<int> source = range;
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = System.Linq.Enumerable.Range(0, 20);
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
+            actual = source.SkipLastWhile(predicate);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
@@ -167,7 +167,7 @@ namespace PauloMorgado.Linq.UnitTests
             System.Collections.Generic.IEnumerable<int> actual;
             System.Collections.Generic.IEnumerable<int> expected = range;
 
-            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
+            actual = source.SkipLastWhile(predicate);
 
             CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
         }
