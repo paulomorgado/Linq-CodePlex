@@ -112,6 +112,19 @@ namespace PauloMorgado.Linq.UnitTests
         }
 
         [TestMethod]
+        public void SkipLastWhile_WithPredicateThatMatchesLastElements2_ReturnsAllButLastSelectedElements()
+        {
+            Func<int, bool> predicate = e => e % 10 > 5;
+            System.Collections.Generic.IEnumerable<int> source = new int[] { 1, 2, 3, 4, 5, 4, 3, 2, 1 };
+            System.Collections.Generic.IEnumerable<int> actual;
+            System.Collections.Generic.IEnumerable<int> expected = new int[] { 1, 2, 3, 4, 5, 4 };
+
+            actual = PauloMorgado.Linq.Enumerable.SkipLastWhile<int>(source, predicate);
+
+            CollectionAssert.AreEqual(expected.AsCollection(), actual.AsCollection());
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void SkipLastWhileWithIndex_WithNullSource_ThrowsException()
         {
