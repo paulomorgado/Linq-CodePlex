@@ -16,9 +16,9 @@ namespace PauloMorgado.Linq
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
 
-    /// <remarks>
+    /// <content>
     /// Returns all the elements from sequence skipping those at the end that satisfy the condition.
-    /// </remarks>
+    /// </content>
     public static partial class Enumerable
     {
         /// <summary>

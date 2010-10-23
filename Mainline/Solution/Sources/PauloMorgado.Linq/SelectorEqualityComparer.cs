@@ -19,7 +19,7 @@ namespace PauloMorgado.Linq
     /// <summary>
     /// <see cref="EqualityComparer&lt;T&gt;" /> that uses a selector to get the key to compare objects.
     /// </summary>
-    /// <typeparam name="TSource">The type of the source.</typeparam>
+    /// <typeparam name="TSource">The type of objects to compare.</typeparam>
     /// <typeparam name="TKey">The type of the key.</typeparam>
     public class SelectorEqualityComparer<TSource, TKey> : EqualityComparer<TSource>
     {
@@ -40,6 +40,8 @@ namespace PauloMorgado.Linq
         public SelectorEqualityComparer(Func<TSource, TKey> selector)
             : this(selector, null)
         {
+            Contract.Requires<ArgumentNullException>(selector != null, "selector");
+            Contract.Ensures(this.comparer != null);
         }
 
         /// <summary>
@@ -84,9 +86,9 @@ namespace PauloMorgado.Linq
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>
-        /// <param name="obj">The obj.</param>
+        /// <param name="obj">The object for which to get a hash code.</param>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for the key of the specified object.
         /// </returns>
         /// <exception cref="T:System.ArgumentNullException">
         /// The type of <paramref name="obj"/> is a reference and <paramref name="obj"/> is <see langword="null" />.

@@ -7,7 +7,7 @@
 //     Copyright (c) Paulo Morgado. All rights reserved.
 // </copyright>
 // <author>Paulo Morgado</author>
-// <summary>Provides a set of static methods for querying objects that implement IEnumerable<T>.</summary>
+// <summary>Provides a set of static methods for querying objects that implement IEnumerable&lt;T&gt;.</summary>
 //-----------------------------------------------------------------------
 
 namespace PauloMorgado.Linq

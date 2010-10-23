@@ -16,9 +16,9 @@ namespace PauloMorgado.Linq
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
 
-    /// <remarks>
+    /// <content>
     /// Returns the elements from the end of a sequence as long as the specified condition is true.
-    /// </remarks>
+    /// </content>
     public static partial class Enumerable
     {
         /// <summary>
