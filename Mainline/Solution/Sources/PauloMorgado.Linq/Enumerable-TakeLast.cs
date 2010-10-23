@@ -16,13 +16,13 @@ namespace PauloMorgado.Linq
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
 
-    /// <remarks>
+    /// <content>
     /// Returns a specified number of contiguous elements from the end of a sequence.
-    /// </remarks>
+    /// </content>
     public static partial class Enumerable
     {
         /// <summary>
-        /// Returns a specified number of contiguous elements from the end of a sequence.	
+        /// Returns a specified number of contiguous elements from the end of a sequence.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of the <paramref name="source"/>.</typeparam>
         /// <param name="source">A sequence to return elements from.</param>
@@ -52,7 +52,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Returns a specified number of contiguous elements from the end of a list.	
+        /// Returns a specified number of contiguous elements from the end of a list.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of the <paramref name="list"/>.</typeparam>
         /// <param name="list">A list to return elements from.</param>
@@ -72,7 +72,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Returns a specified number of contiguous elements from the end of a sequence.	
+        /// Returns a specified number of contiguous elements from the end of a sequence.
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of the <paramref name="source"/>.</typeparam>
         /// <param name="source">A sequence to return elements from.</param>

@@ -17,9 +17,9 @@ namespace PauloMorgado.Linq
     using System.Diagnostics.Contracts;
     using System.Linq;
 
-    /// <remarks>
+    /// <content>
     /// Returns distinct elements from a sequence.
-    /// </remarks>
+    /// </content>
     public static partial class Enumerable
     {
         /// <summary>

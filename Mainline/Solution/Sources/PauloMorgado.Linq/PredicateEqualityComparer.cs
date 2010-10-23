@@ -19,7 +19,7 @@ namespace PauloMorgado.Linq
     /// <summary>
     /// <see cref="EqualityComparer&lt;T&gt;" /> that uses a predicate to compare objects.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of objects to compare.</typeparam>
     public class PredicateEqualityComparer<T> : EqualityComparer<T>
     {
         /// <summary>
@@ -75,19 +75,18 @@ namespace PauloMorgado.Linq
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>
-        /// <param name="obj">The obj.</param>
+        /// <param name="obj">The object for which to get a hash code.</param>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// Always return the same value to force the call to <see cref="IEqualityComparer&lt;T&gt;" />.Equals.
         /// </returns>
         /// <exception cref="T:System.ArgumentNullException">
-        /// The type of <paramref name="obj"/> is a reference and <paramref name="obj"/> is <see langword="null" />.
+        /// The type of <paramref name="obj"/> is a reference and <paramref name="obj"/> is <see langword="null"/>.
         /// </exception>
         [Pure]
         public override int GetHashCode(T obj)
         {
             Contract.Requires<ArgumentNullException>(obj != null, "obj");
 
-            // Always return the same value to force the call to IEqualityComparer<T>.Equals
             return 0;
         }
 
