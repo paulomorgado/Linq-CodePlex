@@ -14,6 +14,7 @@ namespace PauloMorgado.Linq
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Diagnostics.Contracts;
 
     /// <summary>
@@ -34,7 +35,7 @@ namespace PauloMorgado.Linq
         private Func<TSource, TKey> selector;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectorEqualityComparer&lt;TSource, Tkey&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SelectorEqualityComparer&lt;TSource, TKey&gt;"/> class.
         /// </summary>
         /// <param name="selector">The key selector.</param>
         public SelectorEqualityComparer(Func<TSource, TKey> selector)
@@ -45,7 +46,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectorEqualityComparer&lt;TSource, Tkey&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SelectorEqualityComparer&lt;TSource, TKey&gt;"/> class.
         /// </summary>
         /// <param name="selector">The key selector.</param>
         /// <param name="comparer">The key comparer.</param>
@@ -60,7 +61,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Prevents a default instance of the <see cref="SelectorEqualityComparer&lt;TSource, Tkey&gt;"/> class from being created.
+        /// Prevents a default instance of the <see cref="SelectorEqualityComparer&lt;TSource, TKey&gt;"/> class from being created.
         /// </summary>
         private SelectorEqualityComparer()
             : base()
@@ -75,6 +76,7 @@ namespace PauloMorgado.Linq
         /// <param name="y">The second object of type <typeparamref name="TSource"/> to compare.</param>
         /// <returns><see langword="true" /> if the specified objects are equal; otherwise <see langword="false" />.</returns>
         [Pure]
+        [SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "It's not Hungarian.")]
         public override bool Equals(TSource x, TSource y)
         {
             TKey xKey = this.selector(x);
