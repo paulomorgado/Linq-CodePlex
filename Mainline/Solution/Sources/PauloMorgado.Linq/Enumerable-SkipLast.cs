@@ -90,26 +90,15 @@ namespace PauloMorgado.Linq
             Contract.Assert(source != null);
             Contract.Assert(count > 0);
 
-            var sourceEnumerator = source.GetEnumerator();
-            var buffer = new TSource[count];
-            int idx;
+            var queue = new FixedLenghtQueue<TSource>(count);
 
-            for (idx = 0; (idx < count) && sourceEnumerator.MoveNext(); idx++)
+            foreach (var item in source)
             {
-                buffer[idx] = sourceEnumerator.Current;
-            }
-
-            idx = 0;
-
-            while (sourceEnumerator.MoveNext())
-            {
-                var item = buffer[idx];
-
-                buffer[idx] = sourceEnumerator.Current;
-
-                idx = (idx + 1) % count;
-
-                yield return item;
+                TSource value;
+                if (queue.PushPop(item, out value))
+                {
+                    yield return value;
+                }
             }
         }
     }

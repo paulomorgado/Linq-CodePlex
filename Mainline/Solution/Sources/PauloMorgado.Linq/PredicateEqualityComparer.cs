@@ -43,14 +43,6 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Prevents a default instance of the <see cref="PredicateEqualityComparer&lt;T&gt;"/> class from being created.
-        /// </summary>
-        private PredicateEqualityComparer()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Determines whether the specified objects are equal.
         /// </summary>
         /// <param name="x">The first object of type <typeparamref name="T"/> to compare.</param>
@@ -91,7 +83,7 @@ namespace PauloMorgado.Linq
         }
 
         /// <summary>
-        /// Contract checking invarinat method.
+        /// Contract checking invariant method.
         /// </summary>
         [ContractInvariantMethod]
         private void ObjectInvariant()
