@@ -13,7 +13,7 @@
 
         private class EnumerableAsCollection : ICollection
         {
-            private IEnumerable source;
+            private readonly IEnumerable source;
 
             public EnumerableAsCollection(IEnumerable source)
             {

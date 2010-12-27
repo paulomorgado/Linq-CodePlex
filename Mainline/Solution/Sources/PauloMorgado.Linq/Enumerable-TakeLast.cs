@@ -83,36 +83,16 @@ namespace PauloMorgado.Linq
             Contract.Assert(source != null);
             Contract.Assert(count > 0);
 
-            var sourceEnumerator = source.GetEnumerator();
-            var buffer = new TSource[count];
-            var numOfItems = 0;
-            int idx;
+            var buffer = new CircularBuffer<TSource>(count);
 
-            for (idx = 0; (idx < count) && sourceEnumerator.MoveNext(); idx++, numOfItems++)
+            foreach (var item in source)
             {
-                buffer[idx] = sourceEnumerator.Current;
+                buffer.Add(item);
             }
 
-            if (numOfItems < count)
+            foreach (var item in buffer)
             {
-                for (idx = 0; idx < numOfItems; idx++)
-                {
-                    yield return buffer[idx];
-                }
-
-                yield break;
-            }
-
-            for (idx = 0; sourceEnumerator.MoveNext(); idx = (idx + 1) % count)
-            {
-                System.Diagnostics.Debug.WriteLine("3. end={0}", idx);
-
-                buffer[idx] = sourceEnumerator.Current;
-            }
-
-            for (; numOfItems > 0; idx = (idx + 1) % count, numOfItems--)
-            {
-                yield return buffer[idx];
+                yield return item;
             }
         }
     }
