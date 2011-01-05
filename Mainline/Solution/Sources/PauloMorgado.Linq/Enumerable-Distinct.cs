@@ -32,10 +32,11 @@ namespace PauloMorgado.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is <see langword="null" />.
         /// </exception>
-        public static IEnumerable<TSource> Distinct<TSource>(this IEnumerable<TSource> source, Func<TSource, TSource, bool> predicate)
+        internal static IEnumerable<TSource> Distinct<TSource>(this IEnumerable<TSource> source, Func<TSource, TSource, bool> predicate)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Requires<ArgumentNullException>(predicate != null, "predicate");
+            Contract.Ensures(Contract.Result<IEnumerable<TSource>>() != null);
 
             return source.Distinct(new PredicateEqualityComparer<TSource>(predicate));
         }
