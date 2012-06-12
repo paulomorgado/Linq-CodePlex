@@ -7,7 +7,7 @@
 //     Copyright (c) Paulo Morgado. All rights reserved.
 // </copyright>
 // <author>Paulo Morgado</author>
-// <summary>EqualityComparer&lt;T&gt; that uses a selector to get the key to compare objects.</summary>
+// <summary>EqualityComparer{T} that uses a selector to get the key to compare objects.</summary>
 //-----------------------------------------------------------------------
 
 namespace PauloMorgado.Linq
@@ -18,7 +18,7 @@ namespace PauloMorgado.Linq
     using System.Diagnostics.Contracts;
 
     /// <summary>
-    /// <see cref="EqualityComparer&lt;T&gt;" /> that uses a selector to get the key to compare objects.
+    /// <see cref="EqualityComparer{T}" /> that uses a selector to get the key to compare objects.
     /// </summary>
     /// <typeparam name="TSource">The type of objects to compare.</typeparam>
     /// <typeparam name="TKey">The type of the key.</typeparam>
@@ -39,10 +39,9 @@ namespace PauloMorgado.Linq
         /// </summary>
         /// <param name="selector">The key selector.</param>
         public SelectorEqualityComparer(Func<TSource, TKey> selector)
-            : this(selector, null)
+            : this(selector, EqualityComparer<TKey>.Default)
         {
             Contract.Requires<ArgumentNullException>(selector != null, "selector");
-            Contract.Ensures(this.comparer != null);
         }
 
         /// <summary>
@@ -54,10 +53,10 @@ namespace PauloMorgado.Linq
             : base()
         {
             Contract.Requires<ArgumentNullException>(selector != null, "selector");
-            Contract.Ensures(this.comparer != null);
+            Contract.Requires<ArgumentNullException>(comparer != null, "comparer");
 
             this.selector = selector;
-            this.comparer = comparer ?? EqualityComparer<TKey>.Default;
+            this.comparer = comparer;
         }
 
         /// <summary>
