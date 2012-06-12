@@ -7,7 +7,7 @@
 //     Copyright (c) Paulo Morgado. All rights reserved.
 // </copyright>
 // <author>Paulo Morgado</author>
-// <summary>EqualityComparer&lt;T&gt; that uses a predicate to compare objects.</summary>
+// <summary>EqualityComparer{T} that uses a predicate to compare objects.</summary>
 //-----------------------------------------------------------------------
 
 namespace PauloMorgado.Linq
@@ -17,29 +17,61 @@ namespace PauloMorgado.Linq
     using System.Diagnostics.Contracts;
 
     /// <summary>
-    /// <see cref="EqualityComparer&lt;T&gt;" /> that uses a predicate to compare objects.
+    /// <see cref="EqualityComparer{T}" /> that uses a predicate to compare objects.
     /// </summary>
     /// <typeparam name="T">The type of objects to compare.</typeparam>
     public class PredicateEqualityComparer<T> : EqualityComparer<T>
     {
         /// <summary>
-        /// The predicate.
+        /// The empty hash function.
         /// </summary>
-        private Func<T, T, bool> predicate;
+        /// <remarks>
+        /// Always returns the same value to force the call to <see cref="IEqualityComparer{T}" />.Equals.
+        /// </remarks>
+        private static readonly Func<T, int> emptyHashFunc = obj => 0;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PredicateEqualityComparer&lt;T&gt;"/> class.
+        /// The comparison predicate.
         /// </summary>
-        /// <param name="predicate">The predicate.</param>
+        private readonly Func<T, T, bool> predicate;
+
+        /// <summary>
+        /// The hash function.
+        /// </summary>
+        private readonly Func<T, int> hashFunc;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PredicateEqualityComparer{T}"/> class.
+        /// </summary>
+        /// <param name="predicate">The comparison predicate.</param>
         /// <exception cref="T:System.ArgumentNullException">
-        /// <paramref name="predicate"/> is <see langword="null" />.
+        /// <paramref name="predicate"/> is <see langword="null"/>.
         /// </exception>
         public PredicateEqualityComparer(Func<T, T, bool> predicate)
+            : this(predicate, emptyHashFunc)
+        {
+            Contract.Requires<ArgumentNullException>(predicate != null, "predicate");
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PredicateEqualityComparer{T}"/> class.
+        /// </summary>
+        /// <param name="predicate">The comparison predicate.</param>
+        /// <param name="hashFunc">The hash function.</param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="predicate"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="hashFunc"/> is <see langword="null"/>.
+        /// </exception>
+        public PredicateEqualityComparer(Func<T, T, bool> predicate, Func<T, int> hashFunc)
             : base()
         {
             Contract.Requires<ArgumentNullException>(predicate != null, "predicate");
+            Contract.Requires<ArgumentNullException>(hashFunc != null, "hashFunc");
 
             this.predicate = predicate;
+            this.hashFunc = hashFunc;
         }
 
         /// <summary>
@@ -68,18 +100,14 @@ namespace PauloMorgado.Linq
         /// Returns a hash code for this instance.
         /// </summary>
         /// <param name="obj">The object for which to get a hash code.</param>
-        /// <returns>
-        /// Always return the same value to force the call to <see cref="IEqualityComparer&lt;T&gt;" />.Equals.
-        /// </returns>
-        /// <exception cref="T:System.ArgumentNullException">
-        /// The type of <paramref name="obj"/> is a reference and <paramref name="obj"/> is <see langword="null"/>.
-        /// </exception>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        /// <exception cref="T:System.ArgumentNullException">The type of obj is a reference type and obj is null.</exception>
         [Pure]
         public override int GetHashCode(T obj)
         {
             Contract.Requires<ArgumentNullException>(obj != null, "obj");
 
-            return 0;
+            return this.hashFunc(obj);
         }
 
         /// <summary>
@@ -89,6 +117,7 @@ namespace PauloMorgado.Linq
         private void ObjectInvariant()
         {
             Contract.Invariant(this.predicate != null);
+            Contract.Invariant(this.hashFunc != null);
         }
     }
 }
