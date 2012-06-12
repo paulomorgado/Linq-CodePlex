@@ -28,7 +28,7 @@ namespace PauloMorgado.Linq
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
         /// <param name="source">The sequence to remove duplicate elements from.</param>
         /// <param name="predicate">A predicate to determine if two elements are the same.</param>
-        /// <returns>An <see cref="IEnumerable&lt;T&gt;"/> that contains distinct elements from the source sequence.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is <see langword="null" />.
         /// </exception>
@@ -49,7 +49,7 @@ namespace PauloMorgado.Linq
         /// <param name="source">The sequence to remove duplicate elements from.</param>
         /// <param name="selector">The selector.</param>
         /// <returns>
-        /// An <see cref="IEnumerable&lt;T&gt;"/> that contains distinct elements from the source sequence.
+        /// An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="selector"/> is <see langword="null" />.
@@ -72,7 +72,7 @@ namespace PauloMorgado.Linq
         /// <param name="selector">The selector.</param>
         /// <param name="comparer">The comparer.</param>
         /// <returns>
-        /// An <see cref="IEnumerable&lt;T&gt;"/> that contains distinct elements from the source sequence.
+        /// An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="selector"/> is <see langword="null" />.
@@ -81,6 +81,7 @@ namespace PauloMorgado.Linq
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Requires<ArgumentNullException>(selector != null, "selector");
+            Contract.Requires<ArgumentNullException>(comparer != null, "comparer");
             Contract.Ensures(Contract.Result<IEnumerable<TSource>>() != null);
 
             return source.Distinct(new SelectorEqualityComparer<TSource, TKey>(selector, comparer));
